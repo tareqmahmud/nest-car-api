@@ -43,7 +43,7 @@ export class UsersService {
    * @param email
    */
   async find(email: string) {
-    const user = await this.userRepository.find({ email });
+    const user = await this.userRepository.findOne({ email });
 
     if (!user) {
       // Bad practice: Move http protocol errors to controller

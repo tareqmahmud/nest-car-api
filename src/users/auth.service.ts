@@ -1,4 +1,8 @@
-import { BadRequestException, Injectable } from '@nestjs/common';
+import {
+  BadRequestException,
+  Injectable,
+  NotFoundException,
+} from '@nestjs/common';
 import { UsersService } from './users.service';
 import * as bcrypt from 'bcrypt';
 
@@ -10,7 +14,7 @@ export class AuthService {
     // Find out the user
     const user = await this.userService.find(email);
 
-    if (user.length) {
+    if (user) {
       throw new BadRequestException('Email already used');
     }
 
@@ -21,5 +25,21 @@ export class AuthService {
     return await this.userService.create(email, hashedPassword);
   }
 
-  signin(email: string, password: string) {}
+  async signin(email: string, password: string) {
+    const user: any = await this.userService.find(email);
+
+    if (!user) {
+      throw new NotFoundException('Invalid email/password');
+    }
+
+    console.log(user.password);
+
+    const matchedPassword = await bcrypt.compare(password, user.password);
+
+    if (!matchedPassword) {
+      throw new NotFoundException('Invalid email/password');
+    }
+
+    return user;
+  }
 }
