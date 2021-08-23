@@ -31,14 +31,7 @@ export class UsersService {
       return null;
     }
 
-    const user = await this.userRepository.findOne(id);
-
-    if (!user) {
-      // Bad practice: Move http protocol errors to controller
-      throw new NotFoundException('Sorry no user has been found with this id');
-    }
-
-    return user;
+    return await this.userRepository.findOne(id);
   }
 
   /**

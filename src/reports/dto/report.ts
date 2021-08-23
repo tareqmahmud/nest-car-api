@@ -19,6 +19,9 @@ export class ReportDto {
   @Expose()
   millage: number;
 
+  @Expose()
+  approve: boolean;
+
   @Transform(({ obj }) => obj.user.id)
   @Expose()
   userId: number;
