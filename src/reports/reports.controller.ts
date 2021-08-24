@@ -15,7 +15,6 @@ import { CurrentUser } from '../users/decorators/current-user.decorator';
 import { User } from '../users/user.entity';
 import { Serialize } from '../interceptor/serializer.interceptor';
 import { ReportDto } from './dto/report';
-import * as Path from 'path';
 import { ApproveReportDto } from './dto/approve-report.dto';
 import { AdminGuard } from '../users/guards/admin.guard';
 import { GetEstimatedDto } from './dto/get-estimated.dto';
